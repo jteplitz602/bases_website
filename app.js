@@ -58,6 +58,9 @@ app.get('/media', routes.index);
 app.get('/media/events', routes.events);
 app.get('/media/inTheNews', routes.inTheNews);
 app.get('/media/brandingGuideLines', routes.brandingGuideLines);
+// Contact
+app.get("/contact", routes.contactPage);
+app.post("/contact", routes.sendContactEmail);
 
 //Blog
 //No pages here, just direct link

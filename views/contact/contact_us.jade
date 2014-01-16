@@ -1,0 +1,36 @@
+doctype 5
+html
+  head
+    title BASES | Contact Us
+    include ../headerFilesOthers.jade
+
+  body
+    include ../navBarOthers.jade
+    #cover
+      #heroContactUs
+      #heroText Get in Touch
+    #content
+      h1 Contact Us
+      hr.accent
+      .text
+        .row
+          .col-sm-10
+            form.form-horizontal(method="POST", role="form")
+              .form-group
+                label.control-label.col-sm-3(for="name") Your Name
+                .col-sm-4
+                  input.form-control(type="text", name="name")
+              .form-group
+                label.control-label.col-sm-3(for="name") Your Email
+                .col-sm-4
+                  input.form-control(type="email", name="email")
+              .form-group
+                label.control-label.col-sm-3(for="name") What's on your mind?
+                .col-sm-8
+                  textarea.form-control(rows="10", name="message")
+              .form-group
+                .col-sm-offset-3.col-sm-10
+                  button.btn.btn-success(type="submit") Send
+
+    
+    include ../footerFilesOthers.jade

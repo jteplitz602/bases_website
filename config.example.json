@@ -1,0 +1,8 @@
+{
+  "sendgrid": {
+    "email": "",
+    "password": ""
+  },
+  "contact_email": "bases_team_chat@lists.stanford.edu",
+  "contact_from_email": "website@bases.standord.edu"
+}

@@ -175,3 +175,8 @@ hr.divider {
   padding: 10px;
   font-weight: 300;
 }
+
+.form-horizontal label.control-label{
+  font-weight: bold;
+  font-size: 14px;
+}
