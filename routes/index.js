@@ -88,23 +88,28 @@
   };
 
   exports.sendContactEmail = function(req, res){
-    var subject;
-    if (req.body.hasOwnProperty("name")){
-      subject = "Message from " + req.body.name;
-    } else {
-      subject = "Anonymous message";
-    }
-
-    sendgrid.send({
-      to: conf.get("contact_email"),
-      from: req.body.email || conf.get("contact_from_email"),
-      subject: subject,
-      text: req.body.message
-    }, function(err){
-      if (err){
-        console.log(err);
+    try{
+      var subject;
+      if (req.body.name){
+        subject = "Message from " + req.body.name;
+      } else {
+        subject = "Anonymous message";
       }
-      res.render("contact/thanks");
-    });
+
+      sendgrid.send({
+        to: conf.get("contact_email"),
+        from: req.body.email.trim() || conf.get("contact_from_email"),
+        subject: subject,
+        text: req.body.message
+      }, function(err){
+        if (err){
+          console.log(err);
+        }
+        return res.render("contact/thanks");
+      });
+    } catch (e){
+      console.log("Error", e);
+      return res.render("contact/contact_us");
+    }
   };
 }());

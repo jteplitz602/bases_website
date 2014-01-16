@@ -2,6 +2,8 @@ doctype 5
 html
   head
     title BASES | Contact Us
+    script(type="text/javascript", src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
+    script(type="text/javascript", src="/javascripts/contact_us.js")
     include ../headerFilesOthers.jade
 
   body
@@ -15,7 +17,9 @@ html
       .text
         .row
           .col-sm-10
-            form.form-horizontal(method="POST", role="form")
+            form.form-horizontal#contactForm(method="POST", role="form")
+              .alert.alert-danger.hidden#formError
+                | Please enter a message
               .form-group
                 label.control-label.col-sm-3(for="name") Your Name
                 .col-sm-4
@@ -27,7 +31,7 @@ html
               .form-group
                 label.control-label.col-sm-3(for="name") What's on your mind?
                 .col-sm-8
-                  textarea.form-control(rows="10", name="message")
+                  textarea#contact_msg.form-control(rows="10", name="message")
               .form-group
                 .col-sm-offset-3.col-sm-10
                   button.btn.btn-success(type="submit") Send
