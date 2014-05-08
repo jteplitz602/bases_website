@@ -4,15 +4,24 @@ html
   head
     title BASES
     include ../headerFilesOthers.jade
+    link(rel="stylesheet", href="/stylesheets/terminal/jquery.terminal.css")
+    link(rel="stylesheet", href="/stylesheets/hackspace.css")
+    script(type="text/javascript", src="/libraries/jquery-1.11.0.min.js")
+    script(type="text/javascript", src="/javascripts/terminal/jquery.terminal-0.8.7.min.js")
+    script(type="text/javascript", src="/javascripts/terminal/hackspace_terminal.js")
 
   body
     include ../navBarOthers.jade
-    div#cover
-      div#heroHackSpace
-      div#heroText Hackspace
-    div#content 
+    //
+      div#cover
+        div#heroHackSpace
+        div#heroText Hackspace
+    #cover 
+      #terminal
+    div#content.hackspace
       h1 Overview
       hr.accent
       div.text 
        p Hackspace is a common, open, free, hackspace to be a place to code, write, create, and launch ideas. It is a center to meet, work, and build next generation products and startups. 
-    include ../footerFilesOthers.jade   
+      a.btn.btn-success(href="/programs/hackspace/workshops") Workshop Content
+    include ../footerFilesHackspace.jade   
