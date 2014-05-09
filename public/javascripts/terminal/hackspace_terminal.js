@@ -5,7 +5,7 @@
       terminalInit, typedMessage, typed,
 
   // globals
-  greeting, aboutTxt, anim = false;
+  greeting, aboutTxt, anim = false, events;
 
   terminalInit = function(term){
     var command = "about";
@@ -26,6 +26,17 @@
     },
     about: function(){
       this.echo(aboutTxt);
+    },
+    events: function(){
+      for (var i = 0; i < events.length; i++){
+        this.echo(events[i].name);
+      }
+    },
+    "event": function(num){
+      num--;
+      if (num >= 0 && num < events.length){
+        this.echo(events[num].name + ": " + events[num].details);
+      }
     }
   };
 
@@ -82,4 +93,15 @@
   "|  |  |  |  /  _____  \\ |  `----.|  .  \\  .----)   |   |  |     /  _____  \\ |  `----.|  |____ \n" +
   "|__|  |__| /__/     \\__\\ \\______||__|\\__\\ |_______/    | _|    /__/     \\__\\ \\______||_______|\n";
   aboutTxt = "Hackspace aims to accelerate the growth of the hacker community both within BASES and in the Stanford Community.";
+
+  events = [
+    {
+      name: "Website workshop",
+      details: "Friday May 9th 4:30 Gates. Build a website in 1 hour!"
+    },
+    {
+      name: "Hacking hours",
+      details: "Every week we hold hacking hours in Gates"
+    }
+  ];
 }());
