@@ -1,16 +1,18 @@
+/*globals data*/
 (function(){
   "use strict";
   // functions
   var ready, interpret,
       terminalInit, typedMessage, typed,
+      addEvents, loadEventPage,
 
   // globals
-  greeting, aboutTxt, anim = false, events;
+  anim = false;
 
   terminalInit = function(term){
     var command = "about";
     typedMessage(term, command, 200, function(){
-      term.echo(aboutTxt);
+      term.echo(data.aboutTxt);
     });
   };
 
@@ -25,26 +27,27 @@
       this.echo("&#10004;+");
     },
     about: function(){
-      this.echo(aboutTxt);
+      this.echo(data.aboutTxt);
     },
     events: function(){
-      for (var i = 0; i < events.length; i++){
-        this.echo(events[i].name);
+      for (var i = 0; i < data.events.length; i++){
+        this.echo(data.events[i].name);
       }
     },
     "event": function(num){
       num--;
-      if (num >= 0 && num < events.length){
-        this.echo(events[num].name + ": " + events[num].details);
+      if (num >= 0 && num < data.events.length){
+        this.echo(data.events[num].name + ": " + data.events[num].details);
       }
     }
   };
 
   ready = function(){
+    addEvents();
     $("#terminal").terminal(interpret, {
       prompt: "> ",
       name: "hackspace",
-      greetings: greeting,
+      greetings: data.greeting,
       onInit: terminalInit,
       keydown: function(e){
         if (anim){
@@ -80,28 +83,25 @@
     };
   };
 
+  addEvents = function(){
+    for (var i = 0; i < data.events.length; i++){
+      var e = data.events[i];
+      interpret[e.name] = loadEventPage(e);
+    }
+  };
+
+  /*
+   * Returns a functino that loads an event page.
+  */
+  loadEventPage = function(e){
+    return function(){
+      window.location = window.location.origin + "/" + e.url;
+    };
+  };
+
   typedMessage = typed(function(term, message, prompt){
     term.set_command('');
     term.echo(prompt + message);
     term.set_prompt(prompt);
   });
-
-  greeting = " __    __       ___       ______  __  ___      _______..______      ___       ______  _______ \n" +
-  "|  |  |  |     /   \\     /      ||  |/  /     /       ||   _  \\    /   \\     /      ||   ____|\n" +
-  "|  |__|  |    /  ^  \\   |  ,----'|  '  /     |   (----`|  |_)  |  /  ^  \\   |  ,----'|  |__   \n" +
-  "|   __   |   /  /_\\  \\  |  |     |    <       \\   \\    |   ___/  /  /_\\  \\  |  |     |   __|  \n" +
-  "|  |  |  |  /  _____  \\ |  `----.|  .  \\  .----)   |   |  |     /  _____  \\ |  `----.|  |____ \n" +
-  "|__|  |__| /__/     \\__\\ \\______||__|\\__\\ |_______/    | _|    /__/     \\__\\ \\______||_______|\n";
-  aboutTxt = "Hackspace aims to accelerate the growth of the hacker community both within BASES and in the Stanford Community.";
-
-  events = [
-    {
-      name: "Website workshop",
-      details: "Friday May 9th 4:30 Gates. Build a website in 1 hour!"
-    },
-    {
-      name: "Hacking hours",
-      details: "Every week we hold hacking hours in Gates"
-    }
-  ];
 }());
